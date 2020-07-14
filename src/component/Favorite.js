@@ -3,7 +3,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import WetherCard from "../component/WetherCard";
 import { apiCall } from "../services/api";
-import { WeatherApiUrl } from "../store/actions/weather";
+import { WeatherApiUrl, fetchweather } from "../store/actions/weather";
+import { useHistory } from "react-router-dom";
+import { addLocation } from "../store/actions/location";
+import {removeFavorite} from "../store/actions/favorite"
+
 const useStyles = makeStyles((theme) => ({
   cardRoot: {
     display: "flex",
@@ -11,10 +15,11 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
   },
 }));
-function Favorite({favorite }) {
+function Favorite({ favorite, fetchweather,addLocation ,removeFavorite}) {
   const [state, setstate] = useState([]);
 
   useEffect(() => {
+    setstate([])
     try {
       favorite.map((fav) =>
         apiCall("get", WeatherApiUrl(1, fav.key)).then((res) => {
@@ -23,9 +28,21 @@ function Favorite({favorite }) {
       );
     } catch (error) {}
   }, [favorite]);
-
+  let history = useHistory();
   const classes = useStyles();
 
+  const hundledelete = (key,e) => {
+    e.stopPropagation();
+    removeFavorite(key)
+  };
+  const hundleClick = (key, text) => {
+    fetchweather(5, key);
+    addLocation({
+      key,
+      text,
+    });
+    history.push("/");
+  };
 
   const wetherList = state?.map((dailyWeather, i) => {
     const { Date, Temperature, Day, Link } = dailyWeather;
@@ -40,6 +57,9 @@ function Favorite({favorite }) {
         Rain={Rain.Value}
         RainProbability={RainProbability}
         Link={Link}
+        hundleClick={() => hundleClick(favorite[i]?.key, favorite[i]?.text)}
+        deleteCard={(e) => hundledelete(favorite[i]?.key, e)}
+        isFavorite={true}
       />
     );
   });
@@ -57,4 +77,4 @@ function mapStateToProp(state) {
   };
 }
 
-export default connect(mapStateToProp, {  })(Favorite);
+export default connect(mapStateToProp, { fetchweather ,addLocation,removeFavorite})(Favorite);

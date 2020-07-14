@@ -24,6 +24,7 @@ function Weather({ weather }) {
         Rain={Rain.Value}
         RainProbability={RainProbability}
         Link={Link}
+        isFavorite={false}
       />
     );
   });

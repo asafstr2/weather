@@ -13,8 +13,10 @@ const useStyles = makeStyles({
   root: {
     minWidth: 300,
     marginBottom: 50,
-    marginRight:20
-  
+    marginRight: 20,
+    "&:hover": {
+      cursor: (isFavorite) => (isFavorite ? "pointer" : ""),
+    },
   },
 
   title: {
@@ -32,10 +34,12 @@ export default function WetherCard({
   Date,
   Temperature,
   IconPhrase,
-  Rain,
   RainProbability,
   Link,
   favorite,
+  hundleClick,
+  isFavorite,
+  deleteCard
 }) {
   const maximum = `${Temperature.Maximum.Value}${Temperature.Maximum.Unit}`;
   const minimum = `${Temperature.Minimum.Value}${Temperature.Minimum.Unit}`;
@@ -48,10 +52,10 @@ export default function WetherCard({
     if (IconPhrase.includes("now")) return <Snow />;
   };
 
-  const classes = useStyles();
+  const classes = useStyles(isFavorite);
 
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root} onClick={hundleClick}>
       <CardContent>
         <Typography
           className={classes.title}
@@ -100,6 +104,12 @@ export default function WetherCard({
         <Button size="small" href={Link}>
           Learn More
         </Button>
+
+        {isFavorite && (
+          <Button size="small" onClick={deleteCard}>
+            x
+          </Button>
+        )}
       </CardActions>
     </Card>
   );

@@ -1,6 +1,13 @@
-import { ADD_FAVORITE } from "../actionTypes";
+import { ADD_FAVORITE,REMOVE_FAVORITE } from "../actionTypes";
 import { addError } from "./error";
+
+
 export const addFavorite = (favorite) => ({ type: ADD_FAVORITE, favorite });
+
+export const removeFavorite = (key) => ({ type: REMOVE_FAVORITE, key });
+
+
+
 
 export function addFavoriteToLocal(favorite) {
   return async (dispatch) => {

@@ -52,16 +52,16 @@ export default function NewNavbar() {
 
   return (
     <nav
-      class={`navbar navbar-expand-lg navbar-light bg-light ${classes.navbar}`}
+      className={`navbar navbar-expand-lg navbar-light bg-light ${classes.navbar}`}
     >
       {/* eslint-disable-next-line  */}
-      <a class="navbar-brand">
+      <span className="navbar-brand">
         <NavLink to="/" className={`navbar-brand ${classes.navbarBrand}`}>
           <img src={icon} alt="weather icon"></img>
         </NavLink>
-      </a>
+      </span>
       <button
-        class="navbar-toggler"
+        className="navbar-toggler"
         type="button"
         data-toggle="collapse"
         data-target="#navbarSupportedContent"
@@ -69,24 +69,24 @@ export default function NewNavbar() {
         aria-expanded="false"
         aria-label="Toggle navigation"
       >
-        <span class="navbar-toggler-icon"></span>
+        <span className="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <NavLink class="nav-link" to="/">
-              Home <span class="sr-only">(current)</span>
+      <div className="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul className="navbar-nav mr-auto">
+          <li className="nav-item active">
+            <NavLink className="nav-link" to="/">
+              Home <span className="sr-only">(current)</span>
             </NavLink>
           </li>
-          <li class="nav-item">
+          <li className="nav-item">
             {/* eslint-disable-next-line  */}
-            <a class="nav-link">
+            <span className="nav-link">
               <NavLink to="/favorite">Favorite</NavLink>
-            </a>
+            </span>
           </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
+        <form className="form-inline my-2 my-lg-0">
           <Autocompleate geo={geo} />
         </form>
       </div>
