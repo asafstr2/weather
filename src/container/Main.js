@@ -1,16 +1,16 @@
 import React from "react";
-import { Switch, Redirect, Route, withRouter } from "react-router-dom";
+import { Switch, Route, withRouter } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import HomePage from "../component/HomePage";
 import Favorite from "../component/Favorite";
 import { removeError } from "../store/actions/error";
-
+import isThereFav from "../hoc/isThereFav";
 const useStyles = makeStyles({
   container: {},
 });
 
-function Main({ favorite, errors, removeError }) {
+function Main({ errors, removeError }) {
   const classes = useStyles();
 
   return (
@@ -19,20 +19,12 @@ function Main({ favorite, errors, removeError }) {
         <Route
           exact
           path="/"
-          render={(props) => <HomePage {...props} />}
-        ></Route>
-        <Route
-          exact
-          path="/favorite"
           render={(props) => (
-            <Favorite
-              favorite={favorite}
-              {...props}
-              errors={errors}
-              removeError={removeError}
-            />
+            <HomePage {...props} errors={errors} removeError={removeError} />
           )}
         ></Route>
+
+        <Route exact path="/favorite" component={isThereFav(Favorite)}></Route>
       </Switch>
     </div>
   );
@@ -40,12 +32,10 @@ function Main({ favorite, errors, removeError }) {
 
 function mapStateToProps(state) {
   return {
-    currentUser: state.favorite, //getting the current user from the state it an object with 2 keys isAuthenticated=boolian and the user obj wich contain id username and profile image
     errors: state.errors, //contain the error from the server if any
   };
 }
 const mapDispatchToProps = {
-//   authUser,
   removeError,
 };
 

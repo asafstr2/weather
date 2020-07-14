@@ -2,10 +2,12 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
 export default function isThereFav(ComponentToBerendered) {
-  return connect(mapStateToProps)(favorite);
-  function favorite({ favorite, history }, props) {
+  return connect(mapStateToProps)(Favorite);
+  function Favorite({ favorite, history }, props) {
     useEffect(() => {
-      if (!favorite) history.push("/home");
+      if (favorite.length<1) history.push("/");
+
+      // eslint-disable-next-line
     }, [favorite]);
     return <ComponentToBerendered {...props} />;
   }
