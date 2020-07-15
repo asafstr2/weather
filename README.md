@@ -15,5 +15,5 @@ at .env
 also deployed to heroku
 https://weather71520.herokuapp.com/
 
-[I'm an inline-style link](https://www.google.com)
+[Weather App](https://weather71520.herokuapp.com/)
 
