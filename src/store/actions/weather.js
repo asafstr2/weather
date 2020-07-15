@@ -2,7 +2,7 @@ import { apiCall } from "../../services/api";
 import { LOAD_WEATHER } from "../actionTypes";
 import { addError } from "./error";
 const API_KEY = process.env.REACT_APP_API_KEY;
-const API_HOST = "http://dataservice.accuweather.com/";
+const API_HOST = "https://dataservice.accuweather.com/";
 const API_VERSION = "v1";
 
 export const loadweather = (weather) => ({ type: LOAD_WEATHER, weather });
